@@ -12,7 +12,9 @@ import androidx.compose.material3.DatePicker
 import androidx.compose.material3.DatePickerDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.runtime.Composable
@@ -23,6 +25,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.stringResource
+import com.example.datemanager.R
 import com.example.datemanager.viewmodels.ItemEntryViewModel
 import java.util.Date
 import java.util.Locale
@@ -36,10 +40,13 @@ fun ExpDate(modifier: Modifier = Modifier, itemEntryViewModel: ItemEntryViewMode
     OutlinedTextField(
         value = selectedDate?.let { convertMillisToDate(it) } ?: "",
         onValueChange = { onValueChange },
-        label = { Text("Expiration Date") },
-
+        label = { Text(stringResource(R.string.parasta_ennen)) },
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedBorderColor = MaterialTheme.colorScheme.tertiary,
+            focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
+            focusedTextColor = MaterialTheme.colorScheme.primary),
         trailingIcon = {
-            Icon(Icons.Default.DateRange, contentDescription = "Select date")
+            Icon(Icons.Default.DateRange, contentDescription = stringResource(R.string.select_date))
         },
         modifier = modifier
             .fillMaxWidth()
@@ -62,8 +69,8 @@ fun ExpDate(modifier: Modifier = Modifier, itemEntryViewModel: ItemEntryViewMode
             onDateSelected = { selectedDate = it
                         if (selectedDate != null) {
                             val date = Date(selectedDate!!)
-                            val formattedDate = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(date)
-                            itemEntryViewModel.expDateInput = formattedDate
+                            val formattedDate = SimpleDateFormat("yyyy.MM.dd", Locale.getDefault()).format(date)
+                            itemEntryViewModel.updateUiState(itemEntryViewModel.itemUiState.itemDetails.copy(expDate = formattedDate))
                         }
 
                              },
@@ -92,12 +99,12 @@ fun DatePickerModal(
                 onDateSelected(datePickerState.selectedDateMillis)
                 onDismiss()
             }) {
-                Text("OK")
+                Text(stringResource(R.string.ok))
             }
         },
         dismissButton = {
             Button(onClick = onDismiss) {
-                Text("Cancel")
+                Text(stringResource(R.string.peruuta))
             }
         }
     ) {

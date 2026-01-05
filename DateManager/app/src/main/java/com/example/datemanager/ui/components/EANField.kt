@@ -8,15 +8,15 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
+import com.example.datemanager.R
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning
@@ -28,20 +28,25 @@ fun EANField(context: Context, eanInput: String ,onValueChange: (String) -> Unit
 
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
-        label = { Text(text = "EAN") },
+        label = { Text(text = stringResource(R.string.ean)) },
         value = eanInput,
         onValueChange = onValueChange,
         singleLine = true,
         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+        colors = OutlinedTextFieldDefaults.colors(
+            unfocusedBorderColor = MaterialTheme.colorScheme.tertiary,
+            focusedTrailingIconColor = MaterialTheme.colorScheme.primary,
+            focusedTextColor = MaterialTheme.colorScheme.primary),
         trailingIcon = {
             IconButton(
                 onClick = {
 
-                        bacCodeProcess(
+                        barCodeProcess(
                             context = context,
                             success = onValueChange ,
                             canceled = {
-                                Toast.makeText(context, "Scan Canceled", Toast.LENGTH_LONG).show()
+                                Toast.makeText(context,
+                                    context.getString(R.string.viivakoodin_luku_peruttu), Toast.LENGTH_LONG).show()
                             } ,
                             failed = {
                                 Toast.makeText(context, it.message.toString(), Toast.LENGTH_LONG).show()
@@ -52,7 +57,7 @@ fun EANField(context: Context, eanInput: String ,onValueChange: (String) -> Unit
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = ""
+                    contentDescription = stringResource(R.string.scan_barcode)
                 )
             }
         }
@@ -61,7 +66,7 @@ fun EANField(context: Context, eanInput: String ,onValueChange: (String) -> Unit
 
 
 
-private fun bacCodeProcess(
+private fun barCodeProcess(
     context: Context,
     success: (String) -> Unit,
     canceled: () -> Unit,

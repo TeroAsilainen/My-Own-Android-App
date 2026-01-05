@@ -1,7 +1,8 @@
 plugins {
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp") version "2.1.0-1.0.29"
+    id("org.jetbrains.kotlin.plugin.compose")
     alias(libs.plugins.kotlin.serialization)
 }
 
@@ -65,6 +66,12 @@ dependencies {
     implementation(libs.play.services.code.scanner)
     implementation(libs.play.services.base)
     implementation(libs.play.services.tflite.java)
+
+    //Room
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.ui)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

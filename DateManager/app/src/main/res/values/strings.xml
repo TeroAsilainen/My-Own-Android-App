@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">Date Manager</string>
+    <string name="ohjelman_koodaili">Ohjelman Koodaili:</string>
+    <string name="tero_asilainen">Tero Asilainen</string>
+    <string name="api_datan_tarjoaa">API-Datan Tarjoaa:</string>
+    <string name="openfoodfacts_org">openfoodfacts.org</string>
+    <string name="viivakoodin_luku_peruttu">Viivakoodin Luku Peruttu</string>
+    <string name="ean">EAN</string>
+    <string name="hae_tuote">Hae Tuote</string>
+    <string name="lataa">Lataa...</string>
+    <string name="virhe">Tuotetta Ei Löytynyt</string>
+    <string name="l_ytyi_tuote">Löytyi Tuote: %1$s</string>
+    <string name="k_yt">Käytä</string>
+    <string name="tuotteen_nimi">Tuotteen Nimi</string>
+    <string name="tallenna">Tallenna</string>
+    <string name="delete_item">Delete Item</string>
+    <string name="koti">Koti</string>
+    <string name="lis_uusi">Lisää Uusi</string>
+    <string name="info">Info</string>
+    <string name="parasta_ennen">Parasta Ennen</string>
+    <string name="select_date">Select date</string>
+    <string name="ok">OK</string>
+    <string name="peruuta">Peruuta</string>
+    <string name="scan_barcode">Scan barcode</string>
 </resources>

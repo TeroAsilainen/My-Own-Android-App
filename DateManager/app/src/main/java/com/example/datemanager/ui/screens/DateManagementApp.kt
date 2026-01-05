@@ -10,18 +10,20 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.datemanager.models.ItemName
+import com.example.datemanager.R
 import com.example.datemanager.ui.appbars.BottomBar
 import com.example.datemanager.ui.appbars.TopBar
+import com.example.datemanager.viewmodels.ItemEntryViewModel
 
 
 @Composable
-fun DateManagementApp(context: Context) {
+fun DateManagementApp(context: Context, viewModel: ItemEntryViewModel) {
     val navController = rememberNavController()
-    var topLabel by remember { mutableStateOf("Home") }
+    var topLabel by remember { mutableStateOf( "Koti") }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -38,15 +40,15 @@ fun DateManagementApp(context: Context) {
             startDestination = "home"
         ) {
             composable(route = "home" ) {
-                topLabel = "Home"
-                HomeScreen(modifier)
+                topLabel = stringResource(R.string.koti)
+                HomeScreen(modifier, viewModel)
             }
             composable(route = "addNew") {
-                topLabel = "Add New Item"
-                AddNewScreen(context, modifier)
+                topLabel = stringResource(R.string.lis_uusi)
+                AddNewScreen(context = context, modifier =  modifier, navController = navController, itemEntryViewModel = viewModel)
             }
             composable(route = "info") {
-                topLabel = "Info"
+                topLabel = stringResource(R.string.info)
                 InfoScreen(modifier)
             }
         }
